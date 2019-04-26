@@ -9,6 +9,9 @@ const Employee = new Schema(
     },
     sal: {
       type: Number
+    },
+    address: {
+      type: String
     }
   },
   {

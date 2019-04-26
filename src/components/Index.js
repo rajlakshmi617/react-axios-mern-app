@@ -12,13 +12,13 @@ export default class ListEmployee extends Component {
       .then(response => {
         this.setState({ emps: response.data });
       })
-      .catch(function(error) {
+      .catch(function (error) {
         console.log(error);
       });
   }
 
   tabRow() {
-    return this.state.emps.map(function(object, i) {
+    return this.state.emps.map(function (object, i) {
       return <TableRow obj={object} key={i} />;
     });
   }
@@ -32,6 +32,7 @@ export default class ListEmployee extends Component {
               <td>ID</td>
               <td>Name</td>
               <td>Salary</td>
+              <td>Address</td>
             </tr>
           </thead>
           <tbody>{this.tabRow()}</tbody>

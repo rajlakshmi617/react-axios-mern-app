@@ -5,10 +5,12 @@ export default class CreateEmployee extends Component {
     super(props);
     this.onChangeName = this.onChangeName.bind(this);
     this.onChangeSal = this.onChangeSal.bind(this);
+    this.onChangeAddress = this.onChangeAddress.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
     this.state = {
       name: "",
-      sal: ""
+      sal: "",
+      address: ""
     };
   }
   onChangeName(e) {
@@ -21,11 +23,17 @@ export default class CreateEmployee extends Component {
       sal: e.target.value
     });
   }
+  onChangeAddress(e) {
+    this.setState({
+      address: e.target.value
+    });
+  }
   onSubmit(e) {
     e.preventDefault();
     const emp = {
       name: this.state.name,
-      sal: this.state.sal
+      sal: this.state.sal,
+      address: this.state.address
     };
     axios
       .post("http://localhost:4000/emproute/add", emp)
@@ -33,13 +41,16 @@ export default class CreateEmployee extends Component {
 
     this.setState({
       name: "",
-      sal: ""
+      sal: "",
+      address: ""
     });
   }
   render() {
+    const editMode = this.props.data && this.props.data.length && 'edit' in this.props.data[0]
+      ? this.props.data[0].edit : false;
     return (
       <div style={{ marginTop: 50 }}>
-        <h3>Add New Employee</h3>
+        <h3>{editMode ? "Update Employee" : "Add New Employee"}</h3>
         <form onSubmit={this.onSubmit}>
           <div className="form-group">
             <label>Emp Name: </label>
@@ -57,6 +68,14 @@ export default class CreateEmployee extends Component {
               className="form-control"
               value={this.state.sal}
               onChange={this.onChangeSal}
+            />
+          </div>
+          <div className="form-group">
+            <label>Emp Address: </label>
+            <input type="text"
+              className="form-control"
+              value={this.state.address}
+              onChange={this.onChangeAddress}
             />
           </div>
           <div className="form-group">
